@@ -1,0 +1,54 @@
+// Задание 1.
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int seconds;
+    cout << "Введите время в секундах: ";
+    cin >> seconds;
+
+    int hours = seconds / 3600;
+    int minutes = (seconds % 3600) / 60;
+    int secs = seconds % 60;
+
+    cout << hours << " часов, " << minutes << " минут, " << secs << " секунд" << endl;
+    return 0;
+}
+
+
+// Задание 2.
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double amount;
+    cout << "Введите сумму: ";
+    cin >> amount;
+
+    int dollars = static_cast<int>(amount);
+    int cents = static_cast<int>(round((amount - dollars) * 100));
+
+    cout << dollars << " долларов и " << cents << " центов" << endl;
+    return 0;
+}
+
+
+// Задание 3.
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int days;
+    cout << "Введите количество дней: ";
+    cin >> days;
+
+    int weeks = days / 7;
+    int remainingDays = days % 7;
+
+    cout << weeks << " недель и " << remainingDays << " дней" << endl;
+    return 0;
+}
