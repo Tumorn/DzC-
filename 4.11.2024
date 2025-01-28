@@ -1,0 +1,63 @@
+// Задание 1.
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    double distance, time;
+    cout << "Введите расстояние до аэропорта (км): ";
+    cin >> distance;
+    cout << "Введите время (часы): ";
+    cin >> time;
+    cout << "Необходимая скорость: " << distance / time << " км/ч" << endl;
+    return 0;
+}
+
+// Задание 2.
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int h1, m1, s1, h2, m2, s2;
+    cout << "Введите время начала (часы минуты секунды): ";
+    cin >> h1 >> m1 >> s1;
+    cout << "Введите время завершения (часы минуты секунды): ";
+    cin >> h2 >> m2 >> s2;
+
+    int start = h1 * 3600 + m1 * 60 + s1;
+    int end = h2 * 3600 + m2 * 60 + s2;
+    int duration = (end - start) / 60;
+    int cost = duration * 2;
+
+    cout << "Стоимость поездки: " << cost << " грн" << endl;
+    return 0;
+}
+
+
+// Задание 3.
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double distance, consumption, price1, price2, price3;
+    cout << "Введите расстояние (км): ";
+    cin >> distance;
+    cout << "Введите расход бензина на 100 км (л): ";
+    cin >> consumption;
+    cout << "Введите стоимость трех видов бензина (грн/л): ";
+    cin >> price1 >> price2 >> price3;
+
+    double fuel = (distance / 100) * consumption;
+    double cost1 = fuel * price1;
+    double cost2 = fuel * price2;
+    double cost3 = fuel * price3;
+
+    cout << fixed << setprecision(2);
+    cout << "Стоимость поездки:\n";
+    cout << "Бензин 1: " << cost1 << " грн\n";
+    cout << "Бензин 2: " << cost2 << " грн\n";
+    cout << "Бензин 3: " << cost3 << " грн\n";
+    return 0;
+}
