@@ -1,0 +1,22 @@
+#include <iostream>
+
+class Pudge {
+public:
+    int Health;
+    int Armour;
+
+    void FreshMeat(int value) {
+        Health += value;
+        Armour += value;
+    }
+};
+
+int main() {
+    Pudge pudge;
+    pudge.Health = 100;
+    pudge.Armour = 10;
+
+    pudge.FreshMeat(20);
+    std::cout << "Health: " << pudge.Health << ", Armour: " << pudge.Armour << std::endl;
+    return 0;
+}
