@@ -1,0 +1,58 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+class Pudge {
+private:
+    int Health;
+    int Armour;
+    string* abilities;
+    int abilityCount;
+
+public:
+    Pudge(int h = 100, int a = 10, int count = 0, string* ab = nullptr)
+        : Health(h), Armour(a), abilityCount(count) {
+        abilities = new string[abilityCount];
+        for (int i = 0; i < abilityCount; ++i) {
+            abilities[i] = ab[i];
+        }
+    }
+
+    ~Pudge() {
+        delete[] abilities;
+    }
+
+    void printRandomAbility() {
+        if (abilityCount > 0) {
+            int index = rand() % abilityCount;
+            cout << "Случайная способность: " << abilities[index] << endl;
+        }
+        else {
+            cout << "Способностей нет!" << endl;
+        }
+    }
+
+    int calculateDamage(int stat, const string& ability) {
+        int damage = stat;
+        if (ability == "Hook") damage *= 2;
+        else if (ability == "Rot") damage += 50;
+        return damage;
+    }
+};
+
+int main() {
+    srand(time(0));
+
+    string abilities[] = { "Hook", "Rot", "Dismember" };
+    Pudge pudge(120, 15, 3, abilities);
+
+    pudge.printRandomAbility();
+
+    int stat = 100;
+    string ability = "Hook";
+    cout << "Урон: " << pudge.calculateDamage(stat, ability) << endl;
+
+    return 0;
+}
