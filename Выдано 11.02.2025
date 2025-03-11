@@ -1,0 +1,189 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class Car {
+private:
+    int weight;
+    float engineVolume;
+    string brand;
+    string color;
+
+public:
+    Car() : weight(0), engineVolume(0.0), brand("Неизвестно"), color("Неизвестно") {
+        cout << "Вызван конструктор по умолчанию" << endl;
+    }
+
+    Car(int w, float ev, string b, string c) : weight(w), engineVolume(ev), brand(b), color(c) {
+        cout << "Вызван конструктор с параметрами" << endl;
+    }
+
+    int getWeight() const { return weight; }
+    float getEngineVolume() const { return engineVolume; }
+    string getBrand() const { return brand; }
+    string getColor() const { return color; }
+
+    void setWeight(int w) { weight = w; }
+    void setEngineVolume(float ev) { engineVolume = ev; }
+    void setBrand(string b) { brand = b; }
+    void setColor(string c) { color = c; }
+
+    string getLicenseClass() const {
+        if (weight <= 3500 && engineVolume <= 3.5) {
+            return "B";
+        }
+        else if (weight > 3500 && weight <= 7500) {
+            return "C";
+        }
+        else {
+            return "D";
+        }
+    }
+
+    void printInfo() const {
+        cout << "Марка: " << brand << ", Цвет: " << color
+            << ", Вес: " << weight << " кг, Объем двигателя: " << engineVolume << " л"
+            << ", Класс прав: " << getLicenseClass() << endl;
+    }
+};
+
+void printMenu() {
+    cout << "Меню:" << endl;
+    cout << "1. Добавить пустой объект" << endl;
+    cout << "2. Добавить объект с данными" << endl;
+    cout << "3. Редактировать поле объекта" << endl;
+    cout << "4. Вывести информацию обо всех объектах" << endl;
+    cout << "5. Отсортировать массив по весу" << endl;
+    cout << "6. Завершить работу программы" << endl;
+}
+
+void editCar(Car& car) {
+    int choice;
+    cout << "Выберите поле для редактирования:" << endl;
+    cout << "1. Вес" << endl;
+    cout << "2. Объем двигателя" << endl;
+    cout << "3. Марка" << endl;
+    cout << "4. Цвет" << endl;
+    cin >> choice;
+
+    switch (choice) {
+    case 1: {
+        int weight;
+        cout << "Введите новый вес: ";
+        cin >> weight;
+        car.setWeight(weight);
+        break;
+    }
+    case 2: {
+        float engineVolume;
+        cout << "Введите новый объем двигателя: ";
+        cin >> engineVolume;
+        car.setEngineVolume(engineVolume);
+        break;
+    }
+    case 3: {
+        string brand;
+        cout << "Введите новую марку: ";
+        cin >> brand;
+        car.setBrand(brand);
+        break;
+    }
+    case 4: {
+        string color;
+        cout << "Введите новый цвет: ";
+        cin >> color;
+        car.setColor(color);
+        break;
+    }
+    default:
+        cout << "Неверный выбор!" << endl;
+    }
+}
+
+void sortCarsByWeight(Car cars[], int size) {
+    sort(cars, cars + size, [](const Car& a, const Car& b) {
+        return a.getWeight() < b.getWeight();
+        });
+    cout << "Массив отсортирован по весу." << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    const int MAX_CARS = 10;
+    Car cars[MAX_CARS];
+    int carCount = 0;
+    int choice;
+
+    do {
+        printMenu();
+        cout << "Выберите пункт меню: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1: {
+            if (carCount < MAX_CARS) {
+                cars[carCount++] = Car();
+            }
+            else {
+                cout << "Достигнуто максимальное количество автомобилей!" << endl;
+            }
+            break;
+        }
+        case 2: {
+            if (carCount < MAX_CARS) {
+                int weight;
+                float engineVolume;
+                string brand, color;
+
+                cout << "Введите вес: ";
+                cin >> weight;
+                cout << "Введите объем двигателя: ";
+                cin >> engineVolume;
+                cout << "Введите марку: ";
+                cin >> brand;
+                cout << "Введите цвет: ";
+                cin >> color;
+
+                cars[carCount++] = Car(weight, engineVolume, brand, color);
+            }
+            else {
+                cout << "Достигнуто максимальное количество автомобилей!" << endl;
+            }
+            break;
+        }
+        case 3: {
+            int index;
+            cout << "Введите индекс объекта для редактирования (0-" << carCount - 1 << "): ";
+            cin >> index;
+
+            if (index >= 0 && index < carCount) {
+                editCar(cars[index]);
+            }
+            else {
+                cout << "Неверный индекс!" << endl;
+            }
+            break;
+        }
+        case 4: {
+            for (int i = 0; i < carCount; ++i) {
+                cout << "Автомобиль #" << i << ": ";
+                cars[i].printInfo();
+            }
+            break;
+        }
+        case 5: {
+            sortCarsByWeight(cars, carCount);
+            break;
+        }
+        case 6: {
+            cout << "Завершение работы программы." << endl;
+            break;
+        }
+        default:
+            cout << "Неверный выбор!" << endl;
+        }
+    } while (choice != 6);
+
+    return 0;
+}
